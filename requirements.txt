@@ -1,0 +1,11 @@
+1.	City Selection: Allow users to select their departure and arrival cities from a dropdown menu, dynamically updating available buses based on their selection.
+
+2.	Seat Layout: Create a visual representation of the bus seating arrangement, showing which seats are available, selected, or unavailable.
+
+3.	User Registration / Login: Allow users to register and log in, enabling them to save their booking history and preferences.
+
+4.	Booking Confirmation: Display a confirmation page after the booking is completed, including ticket details and (maybe a QR code).
+
+5.	Bus Information: Display additional details about each bus, such as amenities (Wi-Fi, air conditioning), and the estimated travel time.
+
+6.	Search and Filter Options: Implement a search feature to allow users to filter buses based on price, duration, or amenities.

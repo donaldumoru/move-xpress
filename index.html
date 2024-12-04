@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bus Tickets</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script defer src="scripts/script.js"></script>
+    <script defer src="scripts/booking.js"></script>
+  </head>
+
+  <body>
+    <nav class="nav-bar">
+      <div class="logo">
+        <img class="logo-img" src="images/cropped.png" alt="logo" />
+      </div>
+
+      <div class="nav-links">
+        <li>Fare Finder</li>
+        <li>Travel Your Way</li>
+        <li>Explore Freely</li>
+        <li>Plan My Route</li>
+        <li class="login">Sign In/Sign Up</li>
+      </div>
+    </nav>
+
+    <main class="home-main">
+      <div class="main-container">
+        <div class="welcome-wrapper">
+          <p class="welcome-title">
+            The Modern Solution for City-to-City Commuting
+          </p>
+          <p class="welcome-text">
+            MoveXpress provides reliable, comfortable, and tech-enabled
+            journeys, making commuting between cities effortless.
+          </p>
+        </div>
+
+        <div class="start-booking-container">
+          <div class="top-header-wrapper">
+            <li class="top-header">Book a seat</li>
+            <li class="top-header">Booking status</li>
+            <li class="top-header">Special deals</li>
+          </div>
+
+          <div class="booking-section">
+            <div class="route-wrapper">
+              <label for="travel-route">Route</label>
+
+              <select name="routes" class="route-select">
+                <option value="" disabled selected>
+                  --Please choose an option--
+                </option>
+                <option value="lagos-to-benin">Lagos to Benin</option>
+                <option value="abuja-to-kaduna">Abuja to Kaduna</option>
+                <option value="ph-to-calabar">Port Harcourt to Calabar</option>
+                <option value="ibadan-to-ife">Ibadan to Ife</option>
+                <option value="enugu-to-onitsha">Enugu to Onitsha</option>
+              </select>
+
+              <p class="error-message"></p>
+            </div>
+
+            <div class="date-wrapper">
+              <label for="date">Date</label>
+              <input class="route-date" type="date" />
+              <p class="error-message"></p>
+            </div>
+
+            <div class="passengers-section">
+              <label for="passengers">Passengers</label>
+
+              <select name="passenger" class="passenger-data">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+
+            <div class="proceed-button-wrapper">
+              <button class="proceed-button">Proceed</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
