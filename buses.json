@@ -1,0 +1,47 @@
+[
+  {
+    "rate": 40,
+    "multiplier": 2.0,
+    "cashBackPercentage": 10,
+    "busType": "Luxury",
+    "wiFi": true,
+    "airConditioning": true,
+    "departureTime": "08:00 AM",
+    "seatCapacity": 12,
+    "restRoom": true,
+    "snacksIncluded": true,
+    "entertainmentSystem": ["TV", "Music"],
+    "busName": "Mercedes (Luxury Coach)",
+    "image": "images/luxury.jpg"
+  },
+  {
+    "rate": 30,
+    "multiplier": 1.2,
+    "cashBackPercentage": 2,
+    "busType": "Standard",
+    "wiFi": false,
+    "airConditioning": true,
+    "departureTime": "12:30 PM",
+    "seatCapacity": 18,
+    "restRoom": false,
+    "snacksIncluded": false,
+    "entertainmentSystem": false,
+    "busName": "Toyota (Standard Coach)",
+    "image": "images/standard.jpg"
+  },
+  {
+    "rate": 30,
+    "multiplier": 1.5,
+    "cashBackPercentage": 5,
+    "busType": "Executive",
+    "wiFi": true,
+    "airConditioning": true,
+    "departureTime": "10:30 AM",
+    "seatCapacity": 15,
+    "restRoom": true,
+    "snacksIncluded": false,
+    "entertainmentSystem": ["TV"],
+    "busName": "Volvo (Executive Coach)",
+    "image": "images/executive.jpg"
+  }
+]

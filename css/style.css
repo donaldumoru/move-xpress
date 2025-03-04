@@ -15,10 +15,19 @@
   scroll-behavior: smooth;
 }
 
+body {
+  position: relative;
+}
+
+button {
+  cursor: pointer;
+}
+
 .nav-bar {
   display: flex;
   justify-content: space-around;
   height: 120px;
+  box-shadow: 0 5px 15px grey;
 }
 
 .nav-links {
@@ -33,6 +42,10 @@
 .logo {
   display: flex;
   align-items: center;
+}
+
+.logo-link {
+  display: flex;
 }
 
 .logo img {
@@ -87,6 +100,11 @@
   gap: 30px;
 }
 
+.route-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .home-main {
   background-image: url(/images/home.jpg);
   height: 90vh;
@@ -109,19 +127,33 @@
   color: black;
 }
 
+.error-message {
+  color: red;
+}
+
+.loading-message {
+  color: blue;
+}
+
+.toggle-loading-color {
+  color: green;
+}
+
 /* SELECT BUS PAGE */
 
 .select-bus-main {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
-  margin-top: 70px;
   flex-direction: column;
+  height: 90vh;
+  margin-top: 120px;
 }
 
 .bus-image {
   width: 120px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .booking-info-wrapper {
@@ -147,17 +179,34 @@
   text-align: center;
 }
 
-.select-seats-container {
+.hidden {
   display: none;
-  flex-direction: column;
-  /* align-items: center; */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  max-width: 600px;
+  height: 100%;
+  background-color: rgba(46, 46, 46, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.select-seats-container {
+  flex-direction: column;
+  width: 15%;
+  /* max-width: 600px; */
   margin: 0 auto;
   background-color: #f3f3f3;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  z-index: 2;
+  transition: transform 5s ease;
 }
 
 .seats-availability,
@@ -168,9 +217,9 @@
   margin: 10px 0;
 }
 
-.diver-row {
+.driver-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
 }
 
@@ -188,6 +237,119 @@
 .confirm-seats-wrapper {
   margin-top: 20px;
   text-align: center;
+}
+
+.bus-info-container {
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border: 0.5px solid;
+  border-radius: 5px;
+}
+
+/* FINISH BOOKING PAGE*/
+
+.passenger-details-container {
+  width: 60%;
+}
+
+.names-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.passenger-details {
+  display: flex;
+  justify-content: space-around;
+}
+
+.passenger-name {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.passenger-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.info-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* .breadcrumbs-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 2px;
+  background-color: black;
+  width: 100%;
+  position: absolute;
+  bottom: 50%;
+}
+
+.step-wrapper {
+  display: flex;
+  gap: 20px;
+  font-size: 1.2rem;
+  position: relative;
+  z-index: 1;
+  background-color: white;
+} */
+
+.breadcrumbs-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  position: relative;
+}
+
+.progress-bar {
+  height: 2px;
+  background-color: black;
+  width: 0%;
+  position: absolute;
+  bottom: 50%;
+  z-index: 0;
+  transition: 0.3s all;
+}
+
+.step-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  z-index: 1;
+  background: white;
+  padding: 5px;
+}
+
+.step-number {
+  font-size: 1.5rem;
+}
+
+.step-info {
+  font-size: 1.1rem;
+  padding-bottom: 5px;
+}
+
+.progress-buttons {
+  display: flex;
+  gap: 50px;
+}
+
+.progress-buttons button {
+  width: 100px;
 }
 
 /* FONTS*/

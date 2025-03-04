@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bus Tickets</title>
+    <title>Move Xpress</title>
     <link rel="stylesheet" href="css/style.css" />
     <script defer src="scripts/script.js"></script>
     <script defer src="scripts/booking.js"></script>
@@ -11,9 +11,10 @@
 
   <body>
     <nav class="nav-bar">
-      <div class="logo">
-        <img class="logo-img" src="images/cropped.png" alt="logo" />
-      </div>
+      <a class="logo-link" href="#">
+        <div class="logo">
+          <img class="logo-img" src="images/cropped.png" alt="logo" /></div
+      ></a>
 
       <div class="nav-links">
         <li>Fare Finder</li>
@@ -31,8 +32,8 @@
             The Modern Solution for City-to-City Commuting
           </p>
           <p class="welcome-text">
-            MoveXpress provides reliable, comfortable, and tech-enabled
-            journeys, making commuting between cities effortless.
+            MoveXpress provides reliable and comfortable journeys, making
+            commuting between cities effortless.
           </p>
         </div>
 
@@ -45,17 +46,40 @@
 
           <div class="booking-section">
             <div class="route-wrapper">
-              <label for="travel-route">Route</label>
+              <label for="travel-route">Traveling from</label>
 
-              <select name="routes" class="route-select">
+              <select name="from-routes" class="from-route-select">
                 <option value="" disabled selected>
                   --Please choose an option--
                 </option>
-                <option value="lagos-to-benin">Lagos to Benin</option>
-                <option value="abuja-to-kaduna">Abuja to Kaduna</option>
-                <option value="ph-to-calabar">Port Harcourt to Calabar</option>
-                <option value="ibadan-to-ife">Ibadan to Ife</option>
-                <option value="enugu-to-onitsha">Enugu to Onitsha</option>
+                <option value="lagos">Lagos => Ojota</option>
+                <option value="abuja">Abuja => Jabi</option>
+                <option value="oyigbo">Port Harcourt => Mile 1</option>
+                <option value="ibadan">Ibadan => Dugbe</option>
+                <option value="enugu">Enugu => Old Park</option>
+                <option value="ife">Ife => Mayfair</option>
+                <option value="calabar">Calabar => Marian</option>
+                <option value="onitsha">Onitsha => Upper Iweka</option>
+                <option value="kaduna">Kaduna => Sabo</option>
+                <option value="benin-city">Benin => Ugbowo</option>
+              </select>
+
+              <label for="travel-route">Traveling to</label>
+
+              <select name="to-routes" class="to-route-select">
+                <option value="" disabled selected>
+                  --Please choose an option--
+                </option>
+                <option value="lagos">Lagos => Ojota</option>
+                <option value="abuja">Abuja => Jabi</option>
+                <option value="oyigbo">Port Harcourt => Mile 1</option>
+                <option value="ibadan">Ibadan => Dugbe</option>
+                <option value="enugu">Enugu => Old Park</option>
+                <option value="ife">Ife => Mayfair</option>
+                <option value="calabar">Calabar => Marian</option>
+                <option value="onitsha">Onitsha => Upper Iweka</option>
+                <option value="kaduna">Kaduna => Sabo</option>
+                <option value="benin-city">Benin => Ugbowo</option>
               </select>
 
               <p class="error-message"></p>
@@ -70,7 +94,7 @@
             <div class="passengers-section">
               <label for="passengers">Passengers</label>
 
-              <select name="passenger" class="passenger-data">
+              <select name="passenger" class="passengers-number">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -79,7 +103,9 @@
             </div>
 
             <div class="proceed-button-wrapper">
-              <button class="proceed-button">Proceed</button>
+              <button class="proceed-button" disabled>Proceed</button>
+
+              <p class="loading-message" style="display: none">Loading</p>
             </div>
           </div>
         </div>

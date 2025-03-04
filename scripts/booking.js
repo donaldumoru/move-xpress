@@ -2,139 +2,129 @@
 
 let routeButton = document.querySelector('.proceed-button');
 let errorMessage = document.querySelector('.error-message');
-
+let travelOrigin = document.querySelector('.from-route-select');
+let travelDestination = document.querySelector('.to-route-select');
+let numberOfPassengers = document.querySelector('.passengers-number');
+let loadingMessage = document.querySelector('.loading-message');
 const today = new Date().toISOString().split('T')[0];
-
 document.querySelector('.route-date').value = today;
 
-const buses = [
-  {
-    fromCity: 'Lagos',
-    toCity: 'Benin',
-    route: 'lagos-to-benin',
-    price: 25000,
-    wiFi: true,
-    airConditioning: true,
-    travelTime: 5,
-    departureTime: '08:00 AM',
-    arrivalTime: '01:00 PM',
-    busType: 'Luxury',
-    seatCapacity: 18,
-    driverName: 'John Doe',
-    stopOvers: ['Ore'],
-    restRoom: true,
-    snacksIncluded: true,
-    entertainmentSystem: true,
-    busID: 'BUS12345',
-    departureLocation: 'Ojota Bus Terminal',
-    arrivalLocation: 'Ugbowo Park',
-    busName: 'Mercedes Luxury Coach',
-  },
-  {
-    fromCity: 'Abuja',
-    toCity: 'Kaduna',
-    route: 'abuja-to-kaduna',
-    price: 15000,
-    wiFi: false,
-    airConditioning: true,
-    travelTime: 3,
-    departureTime: '10:30 AM',
-    arrivalTime: '01:30 PM',
-    busType: 'Standard',
-    seatCapacity: 18,
-    driverName: 'Mary Ann',
-    stopOvers: ['Kubwa', 'Zuba'],
-    restRoom: false,
-    snacksIncluded: false,
-    entertainmentSystem: false,
-    busID: 'BUS56789',
-    departureLocation: 'Jabi Park',
-    arrivalLocation: 'Sabo Terminal',
-    busName: 'Toyota Standard Coach',
-  },
-  {
-    fromCity: 'Port Harcourt',
-    toCity: 'Calabar',
-    route: 'ph-to-calabar',
-    price: 18000,
-    wiFi: true,
-    airConditioning: true,
-    travelTime: 4,
-    departureTime: '09:00 AM',
-    arrivalTime: '01:00 PM',
-    busType: 'Luxury',
-    seatCapacity: 18,
-    driverName: 'Alex Ike',
-    stopOvers: ['Uyo'],
-    restRoom: true,
-    snacksIncluded: true,
-    entertainmentSystem: true,
-    busID: 'BUS98765',
-    departureLocation: 'Mile 1 Park',
-    arrivalLocation: 'Marian Park',
-    busName: 'Mercedes Luxury Coach',
-  },
-  {
-    fromCity: 'Ibadan',
-    toCity: 'Ife',
-    route: 'ibadan-to-ife',
-    price: 12000,
-    wiFi: false,
-    airConditioning: false,
-    travelTime: 2,
-    departureTime: '07:45 AM',
-    arrivalTime: '09:45 AM',
-    busType: 'Standard',
-    seatCapacity: 18,
-    driverName: 'Kola Tunde',
-    stopOvers: ['Oyo'],
-    restRoom: false,
-    snacksIncluded: false,
-    entertainmentSystem: false,
-    busID: 'BUS11223',
-    departureLocation: 'Dugbe Park',
-    arrivalLocation: 'Mayfair Park',
-    busName: 'Toyota Standard Coach',
-  },
-  {
-    fromCity: 'Enugu',
-    toCity: 'Onitsha',
-    route: 'enugu-to-onitsha',
-    price: 10000,
-    wiFi: true,
-    airConditioning: true,
-    travelTime: 1.5,
-    departureTime: '02:15 PM',
-    arrivalTime: '03:45 PM',
-    busType: 'Executive',
-    seatCapacity: 18,
-    driverName: 'Chinwe Okafor',
-    stopOvers: ['None'], // No stopover
-    restRoom: true,
-    snacksIncluded: true,
-    entertainmentSystem: true,
-    busID: 'BUS33445',
-    departureLocation: 'Old Park',
-    arrivalLocation: 'Upper Iweka',
-    busName: 'Volvo Executive Coach',
-  },
-];
+// INITIALIZE EMPTY ARRAY TO STORE STRING OF BOTH LOCATIONS
+let locationArr = [];
 
-const getRouteInfo = function () {
-  let userRouteInput = document.querySelector('.route-select').value;
+// INITIALIZE EMPTY ARRAY TO STORE LATITUDE AND LONGITUDE OF BOTH LOCATIONS
+let longAndLatArr = [];
 
-  const userRoute = buses.find(function (element) {
-    return element.route === userRouteInput;
+let fromAndToSelect = [travelOrigin, travelDestination];
+
+// FOR EACH METHOD TO ADD LOCATION SELECTION INTO LOCATION ARRAY
+fromAndToSelect.forEach(function (button, index) {
+  button.addEventListener('change', function () {
+    locationArr[index] = fromAndToSelect[index].value;
+
+    if (locationArr[0] && locationArr[1]) {
+      routeButton.disabled = false;
+    }
   });
+});
 
-  userRoute.date = document.querySelector('.route-date').value;
-  userRoute.passengers = Number(
-    document.querySelector('.passenger-data').value
-  );
+//CALLBACK FUNCTION TO GET LONG AND LAT FOR BOTH LOCATIONS
+const getLongAndLat = function () {
+  const travelDate = document.querySelector('.route-date').value;
+  const longAtLatKey = '65c3b838f54d4366bc1c73294b34787f';
+  const distanceAPIKey =
+    'ZfZW0eYft30w2ZJggoqbKaPaAjY067a5KXH85iT3F7kvJah5A6ykL4oHIIqEyuLp';
 
-  sessionStorage.setItem('routeData', JSON.stringify(userRoute));
+  // INITIALIZE COUNTER TO UPDATE LOCATION ARRAY
+  let counter = 0;
 
-  window.location.href = 'select-bus.html';
+  // CHECK IF FROM AND TO FIELDS HAVE THE SAME VALUES
+  if (locationArr[0] === locationArr[1]) {
+    errorMessage.textContent = 'Origin and destination cannot be the same';
+  } else {
+    errorMessage.textContent = '';
+
+    loadingMessage.style.display = 'flex';
+    setInterval(changeLoadingMessageColor, 200);
+
+    const getLongAndLatForEachLocation = setInterval(function () {
+      fetch(
+        `https://api.geoapify.com/v1/geocode/search?text=${locationArr[counter]}&apiKey=${longAtLatKey}`
+      )
+        .then(response => response.json())
+        .then(data => {
+          // PUSH LONGITUDE AND LATITUDE VALUES INTO ARRAY TO USED TO CALCULATE DISTANCE LATER
+          longAndLatArr.push(
+            data.features[0].properties.lat,
+            data.features[0].properties.lon
+          );
+
+          if (longAndLatArr.length === 4) {
+            // FUNCTION TO CALCULATE DISTANCE BETWEEN BOTH LOCATIONS
+            const calculateDistance = function (arr) {
+              // DESTRUCTURE ARRAY CONTAINING LON AND LAT FOR BOTH LOCATIONS
+              const [originLat, originLon, destinationLat, destinationLon] =
+                arr;
+              const origin = `${originLat},${originLon}`;
+              const destination = `${destinationLat},${destinationLon}`;
+
+              fetch(
+                `https://api.distancematrix.ai/maps/api/distancematrix/json?origins=${origin}&destinations=${destination}&key=${distanceAPIKey}`
+              )
+                .then(response => response.json())
+                .then(data => {
+                  longAndLatArr = [];
+
+                  console.log(data);
+
+                  let routeDetails = {
+                    date: travelDate,
+                    numPassengers: Number(numberOfPassengers.value),
+                    fromCity:
+                      travelOrigin.options[travelOrigin.selectedIndex]
+                        .textContent,
+                    toCity:
+                      travelDestination.options[travelDestination.selectedIndex]
+                        .textContent,
+
+                    distanceValue: data.rows[0]?.elements[0]?.distance?.value,
+                    distanceInKm: data.rows[0]?.elements[0]?.distance?.text,
+
+                    travelDuration: data.rows[0]?.elements[0]?.duration?.text,
+                  };
+
+                  // CONVERT THE ROUTE DETAILS INTO A STRING
+                  let routeDetailsString = JSON.stringify(routeDetails);
+
+                  // SAVE THE ROUTE DETAILS USING SESSION STORAGE
+                  sessionStorage.setItem('routeDetails', routeDetailsString);
+
+                  window.location.href = '/select-bus.html';
+                })
+                .catch(err => console.error(err));
+            };
+
+            calculateDistance(longAndLatArr);
+          }
+        })
+
+        .catch(err => console.error(err));
+
+      if (counter === locationArr.length - 1) {
+        clearInterval(getLongAndLatForEachLocation);
+      } else {
+        counter++;
+      }
+    }, 1000);
+  }
 };
 
-routeButton.addEventListener('click', getRouteInfo);
+const changeLoadingMessageColor = function () {
+  if (loadingMessage.className === 'loading-message') {
+    loadingMessage.className = 'toggle-loading-color';
+  } else {
+    loadingMessage.className = 'loading-message';
+  }
+};
+
+routeButton.addEventListener('click', getLongAndLat);
